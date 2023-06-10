@@ -14,6 +14,9 @@ read -p "Select a USB drive (enter the corresponding drive label, e.g sda): " dr
 clear
 read -p "Enter the path to the ISO file : " iso_file
 
+# Change drive_label to the actual path to the drive
+drive_path="/dev/$drive_label"
+
 # Confirm user's choices
 clear
 echo "Selected USB Drive: $drive_label"
@@ -37,11 +40,11 @@ fi
 # Unmount the USB drive
 clear
 echo "Unmounting drive..."
-umount "$drive_label"*
+umount "$drive_path"*
 
 # Write the ISO to the USB drive
 clear
-echo "Writing $iso_file to $drive_label..."
-sudo dd bs=4M if=$iso_file of=$drive_label status=progress oflag=sync
+echo "Writing $iso_file to $drive_path..."
+sudo dd bs=4M if=$iso_file of=$drive_path status=progress oflag=sync
 clear
 echo "Bootable USB created successfully!"
